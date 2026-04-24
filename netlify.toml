@@ -1,0 +1,8 @@
+[build]
+  publish = "frontend"
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/bfhl"
+  to = "/.netlify/functions/bfhl"
+  status = 200

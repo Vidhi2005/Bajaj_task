@@ -2,7 +2,7 @@
    BFHL Analyzer — Frontend Logic
    ═══════════════════════════════════════════════════════════════ */
 
-const API_URL = window.location.origin; // same origin when served by Express
+const API_URL = window.location.origin; // /bfhl redirects to /.netlify/functions/bfhl via netlify.toml
 
 // ─── DOM References ─────────────────────────────────────────────
 const nodeInput = document.getElementById("nodeInput");
