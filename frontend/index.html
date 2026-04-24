@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BFHL — Tree Hierarchy Analyzer</title>
+  <meta name="description" content="SRM Full Stack Engineering Challenge - Analyze hierarchical node relationships with POST /bfhl API" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="header" id="app-header">
+      <div class="logo">
+        <svg viewBox="0 0 32 32" class="logo-icon"><path d="M16 2L4 9v14l12 7 12-7V9L16 2zm0 3.5L25 11v10l-9 5.25L7 21V11l9-5.5z" fill="url(#grad)"/><defs><linearGradient id="grad" x1="0" y1="0" x2="32" y2="32"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#a855f7"/></linearGradient></defs></svg>
+        <h1>BFHL Analyzer</h1>
+      </div>
+      <p class="subtitle">Parse hierarchical node relationships &amp; visualize trees</p>
+    </header>
+
+    <!-- Input Section -->
+    <section class="card input-card" id="input-section">
+      <h2 class="card-title">
+        <span class="card-icon">⟶</span>
+        Input Nodes
+      </h2>
+      <p class="card-desc">Enter node relationships separated by commas (e.g. <code>A-&gt;B, A-&gt;C, B-&gt;D</code>)</p>
+      <textarea id="nodeInput" class="input-area" rows="4" placeholder='A->B, A->C, B->D, C->E, E->F, X->Y, Y->Z, Z->X, P->Q, Q->R, G->H, G->H, G->I, hello, 1->2, A->'></textarea>
+      <button id="submitBtn" class="btn-submit" type="button">
+        <span class="btn-text">Analyze</span>
+        <span class="btn-loader" id="loader"></span>
+      </button>
+    </section>
+
+    <!-- Error -->
+    <div id="errorBox" class="error-box hidden">
+      <span class="error-icon">⚠</span>
+      <span id="errorMsg"></span>
+    </div>
+
+    <!-- Results -->
+    <section id="results" class="results hidden">
+
+      <!-- Summary Cards -->
+      <div class="summary-row" id="summaryRow">
+        <div class="stat-card" id="statTrees">
+          <span class="stat-value" id="valTrees">0</span>
+          <span class="stat-label">Trees</span>
+        </div>
+        <div class="stat-card stat-warn" id="statCycles">
+          <span class="stat-value" id="valCycles">0</span>
+          <span class="stat-label">Cycles</span>
+        </div>
+        <div class="stat-card stat-accent" id="statLargest">
+          <span class="stat-value" id="valLargest">—</span>
+          <span class="stat-label">Largest Root</span>
+        </div>
+      </div>
+
+      <!-- Hierarchies -->
+      <div class="card" id="hierarchiesCard">
+        <h2 class="card-title"><span class="card-icon">🌳</span> Hierarchies</h2>
+        <div id="hierarchiesList" class="hierarchies-list"></div>
+      </div>
+
+      <!-- Invalid & Duplicates -->
+      <div class="two-col">
+        <div class="card" id="invalidCard">
+          <h2 class="card-title"><span class="card-icon">✗</span> Invalid Entries</h2>
+          <div id="invalidList" class="badge-list"></div>
+        </div>
+        <div class="card" id="duplicateCard">
+          <h2 class="card-title"><span class="card-icon">⊘</span> Duplicate Edges</h2>
+          <div id="duplicateList" class="badge-list"></div>
+        </div>
+      </div>
+
+      <!-- Raw JSON -->
+      <details class="card raw-card" id="rawCard">
+        <summary class="card-title clickable"><span class="card-icon">{ }</span> Raw JSON Response</summary>
+        <pre id="rawJson" class="raw-json"></pre>
+      </details>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
